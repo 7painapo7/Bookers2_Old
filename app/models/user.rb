@@ -3,8 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
  	devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
-    # バリデーションチェック
-	# validates :name, presence: true, length: { in: 2..20 }
-	# validates :introduction, presence: true
-	# validates :profile_image_id, presence: true
+    attachment :profile_image
+	# deviseでemailを不必要にする
+	def email_required?
+	false
+	end
+	def email_changed?
+	false
+	end
 end
