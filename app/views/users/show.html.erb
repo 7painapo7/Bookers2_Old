@@ -1,19 +1,24 @@
 usersのshowページ
 <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
 <h3><%= @user.name %></h3>
+<h3><%= @user.introduction %></h3>
 <% if @user.id == current_user.id %>
 <p><%= link_to "プロフィール編集", edit_user_path(@user), class: "pull-right" %></p>
 <% end %>
+
+
 <h1>New book</h1>
 <!-- form_for部分 -->
 <%= form_for(@book) do |f| %>
-
 <h4>Title</h4>
 <%= f.text_field :title %>
-
 <h4>Opinion</h4>
 <%= f.text_area :body %>
-
 <%= f.submit 'Create Book' %>
+<% end %>
 
+
+<% @books.each do |a| %>
+<h4><%= a.title %></h4>
+<h4><%= a.body %></h4>
 <% end %>
