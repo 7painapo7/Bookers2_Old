@@ -1,24 +1,40 @@
-usersのshowページ
+<p>usersのshowページ</p>
+
+
+
 <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
-<h3><%= @user.name %></h3>
-<h3><%= @user.introduction %></h3>
+<h4>name</h4>
+<h4><%= @user.name %></h4>
+<h4>introduction</h4>
+<h4><%= @user.introduction %></h4>
 <% if @user.id == current_user.id %>
-<p><%= link_to "プロフィール編集", edit_user_path(@user), class: "pull-right" %></p>
+<p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
 <% end %>
 
 
-<h1>New book</h1>
-<!-- form_for部分 -->
+<h2>New book</h2>
 <%= form_for(@book) do |f| %>
-<h4>Title</h4>
-<%= f.text_field :title %>
-<h4>Opinion</h4>
-<%= f.text_area :body %>
-<%= f.submit 'Create Book' %>
+
+  <% if @book.errors.any? %>
+  <h2><%= @book.errors.count %>errors prohibited this book from being saved:</h2>
+  <% @book.errors.full_messages.each do |message| %>
+            <%= message %>
+    <% end %>
+  <% end %>
+
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+
+  <h4>Body</h4>
+  <%= f.text_area :body %>
+
+  <h4><%= f.submit 'Create Book' %></h4>
 <% end %>
 
 
-<% @books.each do |a| %>
-<h4><%= a.title %></h4>
-<h4><%= a.body %></h4>
+<% @books.each do |book| %>
+<%= link_to book_path(book.id) do %>
+<h4><%= book.title %></h4>
+<% end %>
+<h4><%= book.body %></h4>
 <% end %>

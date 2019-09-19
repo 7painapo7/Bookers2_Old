@@ -1,8 +1,13 @@
 class UsersController < ApplicationController
+	# ログインしてる時だけ許可するアクションをonlyで指定
+	before_action :authenticate_user!, only: [:index,:show,:edit,:update]
+
 
 	def index
-		@user = User.new
   		@users = User.all
+		@book = Book.new
+		@user = current_user
+		@books = @user.books.reverse_order
 	end
 
 	def new
@@ -23,6 +28,18 @@ class UsersController < ApplicationController
 	    @user = User.find(params[:id])
 	    @user.update(user_params)
 	    redirect_to user_path(@user.id)
+	end
+
+	def create
+		@book = Book.new(book_params)
+		@book.user_id = current_user.id
+		if
+		  @book.save
+		  redirect_to book_path(@book.id)
+		else
+		  @books = Book.all
+		  render 'index'
+		end
 	end
 
 	def start

@@ -4,8 +4,8 @@ class User < ApplicationRecord
  	devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :validatable
     attachment :profile_image
-
     has_many :books, dependent: :destroy
+
 
 	# deviseでemailを不必要にする
 	def email_required?
