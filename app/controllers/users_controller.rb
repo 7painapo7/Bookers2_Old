@@ -27,6 +27,8 @@ class UsersController < ApplicationController
 	def update
 	    @user = User.find(params[:id])
 	    @user.update(user_params)
+	    # ifはこの場合不要？
+	    flash[:notice] = "You have updated user successfully."
 	    redirect_to user_path(@user.id)
 	end
 
@@ -35,6 +37,7 @@ class UsersController < ApplicationController
 		@book.user_id = current_user.id
 		if
 		  @book.save
+		  flash[:notice] = "Welcome! You have signed up successfully."
 		  redirect_to book_path(@book.id)
 		else
 		  @books = Book.all
