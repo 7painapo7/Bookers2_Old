@@ -1,6 +1,6 @@
 <p>booksのindexページ</p>
 
-<%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
+<%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
 <h4>name</h4>
 <h4><%= @user.name %></h4>
 <h4>introduction</h4>

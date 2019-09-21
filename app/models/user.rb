@@ -6,6 +6,8 @@ class User < ApplicationRecord
     attachment :profile_image
     has_many :books, dependent: :destroy
 
+    validates :name, presence: true, length: { minimum: 2, maximum: 20 }
+    validates :introduction, length: { maximum: 50 }
 
 	# deviseでemailを不必要にする
 	def email_required?

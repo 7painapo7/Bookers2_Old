@@ -6,33 +6,34 @@ class BooksController < ApplicationController
   def index
   	@book = Book.new
   	@books = Book.all
-    @users = User.all
     # 全部を表示するだけなので紐付け不要
     @user = current_user
   end
 
   def show
-    @booknew = Book.new
-  	@book = Book.find(params[:id])
-    # 紐付けをしている
-    @user = User.find(@book.user_id)
+    @book = Book.new
+  	@book_show = Book.find(params[:id])
   end
 
   def edit
   	@book = Book.find(params[:id])
+    if @book.user_id != current_user.id
+      redirect_to books_path
+    end
   end
 
   def create
     @user = current_user
   	@book = Book.new(book_params)
     @book.user_id = current_user.id
+    @books = Book.all
+    @users = User.all
     if
       @book.save
       flash[:notice] = "You have creatad book successfully."
       redirect_to book_path(@book.id)
     else
-      @books = Book.all
-      render 'show'
+      render 'index'
     end
   end
 
