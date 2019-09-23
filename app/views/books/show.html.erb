@@ -8,9 +8,9 @@
 		<table class='table'>
 
 			<tr>
-				<td><%= attachment_image_tag @user, :profile_image,　format: 'jpeg', fallback: "no_image.jpg", size: "40x40" %></td>
+				<td><%= attachment_image_tag @user, :profile_image,　format: 'jpeg', fallback: "no_image.jpg", size: "40x40" %>
 
-	            <td>
+	            <br>
 	            <%= link_to user_path(@user.id) do %>
 	            <%= @book_show.user.name %>
 	            <% end %>

@@ -18,6 +18,10 @@
 @import "bootstrap";
 
 
+.navbar-inverse {
+	height: 50px;
+}
+
 .navbar-left {
 	color: white;
 	font-size: 20px;
@@ -27,10 +31,6 @@
     border-radius: 0px;
 }
 
-.glyphicon {
-	padding: 15px;
-}
-
 a {
     text-decoration: none;
 	color: #9d9d9d;
@@ -38,4 +38,8 @@ a {
 
  .flash {
  	color: #008000;
+ }
+
+ .field {
+    margin-bottom: 10px;
  }
