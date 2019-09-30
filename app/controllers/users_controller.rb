@@ -17,11 +17,13 @@ class UsersController < ApplicationController
 	def show
 		@book = Book.new
 		@user = User.find(params[:id])
+		# 紐付けしてる
 		@books = @user.books.reverse_order
 	end
 
 	def edit
 		@user = User.find(params[:id])
+		# カレントユーザーでない場合
 	    if @user != current_user
 	      redirect_to user_path(current_user.id)
 	    end

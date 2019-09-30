@@ -1,6 +1,5 @@
 <div class="container">
 
-
 	<%= render 'users/template', user: @user, book: @book %>
 
 	<div class="col-xs-9">
@@ -29,7 +28,56 @@
 				<td><%= link_to "Edit", edit_book_path(@book_show.id),class:"btn-sm btn-success" %></td>
 				<td><%= link_to "Destroy", book_path(@book_show.id),class:"btn-sm btn-danger", method: :delete,data: { confirm: '本当に消しますか？' } %></td>
 				<% end %>
-
 			</tr>
-		</div>
+		</table>
 	</div>
+
+<!-- コメント部分 -->
+<div class="col-xs-9">
+<h2>Comments</h2>
+
+<!-- 件数の表示 -->
+<h4 class="comment-count"><%= @book_show.post_comments.count %>件コメント</h4>
+
+<!-- コメント本文の表示部分 -->
+<div class="row">
+	<div class="col-xs-12">
+		<table class='table'>
+			<% @book_show.post_comments.each do |post_comment| %>
+			<tr>
+				<td>
+					<a href="#" class="link-author"><%= post_comment.user.name %></a>
+				</td>
+				<td>
+					<span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
+				</td>
+				<td>
+					<div class="comment-entry"><%= post_comment.comment %></div>
+				</td>
+				<td>
+					<%= link_to "Edit",  edit_book_post_comment_path(@book_show, post_comment.id),class:"btn-sm btn-info" %>
+				</td>
+				<td>
+					<%= link_to "Destroy", book_post_comment_path(@book_show, post_comment.id),class:"btn-sm btn-warning", method: :delete,data: { confirm: '本当に消しますか？' } %>
+				</td>
+			</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
+
+<!-- コメント入力フォーム -->
+<!-- ルーティングもネスト（親子関係）しているため、上記2つの情報が必要。-->
+<%= form_for [@book_show, @post_comment] do |f| %>
+    <div class="row">
+        <div class="col-xs-9">
+            <%= f.text_area :comment, rows:'1', class: "form-control",placeholder: "コメントをここに" %>
+        </div>
+		<div class="col-xs-3">
+	    <%= f.submit "post", class:"btn btn-primary" %>
+	    </div>
+    </div>
+<% end %>
+
+</div>
+</div>
